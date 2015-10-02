@@ -199,6 +199,8 @@ class LogStash::Filters::Ls_Throttle < LogStash::Filters::Base
       @logger.debug? and @logger.debug(
         "#{@event_counters.inspect} -- #{key} -- #{counter.inspect}")
       @logger.warn("Poin poin poin.... #{e.message}")
+      
+      nil # force the exit of the method if the execution failed.
     end
 
     @logger.debug? and @logger.debug("filters/#{self.class.name}: current count",
