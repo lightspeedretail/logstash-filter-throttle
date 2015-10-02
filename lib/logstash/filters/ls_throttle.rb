@@ -190,7 +190,13 @@ class LogStash::Filters::Ls_Throttle < LogStash::Filters::Base
     end
 
     # Fetch the counter
-    counter = @event_counters[key]
+    begin
+      counter = @event_counters[key]
+    rescue Exception => e
+      @logger.debug? and @logger.debug(
+        "#{@event_counters.inspect} -- #{key} -- #{counter.inspect}")
+      @logger.warn("Poin poin poin.... #{e.message}")
+    end
 
     # Count this event
     counter[:count] = counter[:count] + 1;
